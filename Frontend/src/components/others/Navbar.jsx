@@ -5,67 +5,62 @@ import logo from "../../assets/logo.png";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
+  const linkClass = ({ isActive }) =>
+    isActive ? "text-purple-600" : "hover:text-purple-500";
+
   return (
-    <nav className="w-full bg-black px-10 flex items-center justify-between border border-gray-800 relative">
+    <nav className="w-full bg-black border-b border-gray-800 fixed top-0">
       
-      {/* Logo */}
-      <div className="flex items-center">
-        <img src={logo} width="100" alt="NavRiox Logo" />
-        <h1 className="text-3xl font-bold">
-          <span className="text-white">Nav</span>
-          <span className="text-purple-900">Riox</span>
-        </h1>
-      </div>
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-10 py-3">
 
-      {/* Desktop Links */}
-      <div className="hidden md:flex gap-6 text-white font-medium">
-        <NavLink to="/" className={({ isActive }) => isActive ? "text-purple-700" : "hover:text-purple-500"}>
-          Home
-        </NavLink>
-        <NavLink to="/about" className={({ isActive }) => isActive ? "text-purple-700" : "hover:text-purple-500"}>
-          services
-        </NavLink>
-        <NavLink to="/support" className={({ isActive }) => isActive ? "text-purple-700" : "hover:text-purple-500"}>
-          ? support
-        </NavLink>
-        <NavLink to="/changelog" className={({ isActive }) => isActive ? "text-purple-700" : "hover:text-purple-500"}>
-          changelog
-        </NavLink>
-      </div>
+        <div className="flex items-center">
+          <img src={logo} className="w-16 sm:w-20" alt="NavRiox Logo" />
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">
+            <span className="text-white">Nav</span>
+            <span className="text-purple-900">Riox</span>
+          </h1>
+        </div>
 
-      {/* Desktop Buttons */}
-      <div className="hidden md:flex items-center gap-4">
-        <button className="px-5 py-2 rounded-lg font-medium text-white bg-purple-900 hover:text-purple-600 transition">
-          Login
+        <div className="hidden lg:flex gap-8 text-white font-medium">
+          <NavLink to="/" className={linkClass}>Home</NavLink>
+          <NavLink to="/services" className={linkClass}>services</NavLink>
+          <NavLink to="/support" className={linkClass}>? support</NavLink>
+          <NavLink to="/changelog" className={linkClass}>changelog</NavLink>
+        </div>
+
+        <div className="hidden lg:flex items-center gap-4">
+          <button className="px-4 py-2 rounded-lg text-white bg-purple-900 hover:bg-purple-700 transition">
+            Login
+          </button>
+          <button className="px-4 py-2 rounded-lg text-purple-900 bg-white border border-purple-900 hover:bg-purple-100 transition">
+            Register
+          </button>
+        </div>
+
+        <button
+          onClick={() => setOpen(!open)}
+          className="lg:hidden text-white text-3xl"
+        >
+          {open ? "✕" : "☰"}
         </button>
-        <button className="px-5 py-2 rounded-lg font-medium text-purple-900 bg-white border border-purple-900 hover:bg-purple-100 transition">
-          Register
-        </button>
       </div>
 
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="md:hidden text-white text-3xl"
-      >
-        ☰
-      </button>
-
-      {/* Mobile Dropdown */}
       {open && (
-        <div className="absolute top-full left-0 w-full bg-black border-t border-gray-800 md:hidden">
-          <div className="flex flex-col items-center gap-4 py-6 text-white">
-            <NavLink to="/" onClick={() => setOpen(false)}>Home</NavLink>
-            <NavLink to="/about" onClick={() => setOpen(false)}>services</NavLink>
-            <NavLink to="/support" onClick={() => setOpen(false)}>support</NavLink>
-            <NavLink to="/changelog" onClick={() => setOpen(false)}>changelog</NavLink>
+        <div className="lg:hidden bg-black border-t border-gray-800 px-6 py-6">
+          <div className="flex flex-col items-center gap-5 text-white">
+            <NavLink to="/" onClick={() => setOpen(false)} className={linkClass}>Home</NavLink>
+            <NavLink to="/services" onClick={() => setOpen(false)}className={linkClass}>services</NavLink>
+            <NavLink to="/support" onClick={() => setOpen(false)}className={linkClass}>support</NavLink>
+            <NavLink to="/changelog" onClick={() => setOpen(false)}className={linkClass}>changelog</NavLink>
 
-            <button className="w-40 px-5 py-2 rounded-lg bg-purple-900 hover:bg-purple-700">
-              Login
-            </button>
-            <button className="w-40 px-5 py-2 rounded-lg bg-white text-purple-900 border border-purple-900 hover:bg-purple-100">
-              Register
-            </button>
+            <div className="flex flex-col gap-3 w-full max-w-xs mt-4">
+              <button className="py-2 rounded-lg bg-purple-900 hover:bg-purple-700">
+                Login
+              </button>
+              <button className="py-2 rounded-lg bg-white text-purple-900 border border-purple-900 hover:bg-purple-100">
+                Register
+              </button>
+            </div>
           </div>
         </div>
       )}
