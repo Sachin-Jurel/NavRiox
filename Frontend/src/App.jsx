@@ -5,6 +5,7 @@ import Home from './Pages/Home'
 import Services from './Pages/Services'
 import Support from './Pages/Support'
 import Changelog from './Pages/Changelogs'
+import Footer from './components/others/Footer'
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/support" element={<Support />} />
         <Route path="/changelog" element={<Changelog />} />
       </Routes>
+      <Footer />
     </>
   )
 }
