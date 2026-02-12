@@ -3,8 +3,8 @@ import React from "react";
 const Hero = () => {
   return (
     <section className="min-h-screen bg-black flex flex-col py-45 px-6 ">
-      <div className="max-w-3xl text-center space-y-5 animate-fade-in-up">
-        <h1 className="text-xl md:text-2xl font-extrabold text-white leading-tight">
+      <div className="max-w-3xl text-center space-y-5 animate-fadeInUp">
+        <h1 className="text-2xl md:text-3xl font-extrabold text-white leading-tight">
           AI-Powered <span className="text-purple-500">Automation</span> for
           Forms & <br /> Photos in Seconds
         </h1>
