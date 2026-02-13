@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const linkClass = ({ isActive }) =>
     isActive ? "text-purple-600" : "hover:text-purple-500";
@@ -35,10 +37,10 @@ const Navbar = () => {
         </div>
 
         <div className="hidden lg:flex items-center gap-4">
-          <button className="px-4 py-2 rounded-lg text-white bg-purple-900 hover:bg-purple-700 transition">
+          <button onClick={() => navigate("/login")} className="px-4 py-2 rounded-lg text-white bg-purple-900 hover:bg-purple-700 transition">
             Login
           </button>
-          <button className="px-4 py-2 rounded-lg text-purple-900 bg-white border border-purple-900 hover:bg-purple-100 transition">
+          <button onClick={() => navigate("/register")} className="px-4 py-2 rounded-lg text-purple-900 bg-white border border-purple-900 hover:bg-purple-100 transition">
             Register
           </button>
         </div>
@@ -84,11 +86,17 @@ const Navbar = () => {
             </NavLink>
 
             <div className="flex flex-col gap-3 w-full max-w-xs mt-4">
-              <button className="py-2.5 rounded-lg bg-gradient-to-r from-purple-700 to-purple-900 text-white font-medium shadow-lg shadow-purple-900/30 hover:from-purple-600 hover:to-purple-800 transition-all duration-300 hover:scale-105">
+              <button
+                onClick={() => navigate("/login")}
+                className="px-4 py-2 rounded-lg text-white bg-purple-900 hover:bg-purple-700 transition"
+              >
                 Login
               </button>
 
-              <button className="py-2.5 rounded-lg bg-transparent text-purple-400 font-medium border border-purple-700 hover:bg-purple-900/20 hover:border-purple-500 transition-all duration-300 hover:scale-105">
+              <button
+                onClick={() => navigate("/register")}
+                className="px-4 py-2 rounded-lg text-purple-900 bg-white border border-purple-900 hover:bg-purple-100 transition"
+              >
                 Register
               </button>
             </div>

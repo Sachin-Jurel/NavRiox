@@ -1,32 +1,69 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
-    <section className="min-h-screen bg-black flex flex-col py-45 px-6 ">
-      <div className="max-w-3xl text-center space-y-5 animate-fadeInUp">
-        <h1 className="text-2xl md:text-3xl font-extrabold text-white leading-tight">
-          AI-Powered <span className="text-purple-500">Automation</span> for
-          Forms & <br /> Photos in Seconds
-        </h1>
+    <div className="space-y-8 text-center md:text-left">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-semibold tracking-widest uppercase"
+      >
+        AI Automation Suite
+      </motion.div>
 
-        <p className="text-gray-400 text-lg max-w-xl mx-auto">
-          Streamline photo editing, document uploads, and autofill workflows
-          using the world’s most secure cyber-automation suite.
-        </p>
+      <motion.h1
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9 }}
+        className="text-4xl md:text-5xl font-extrabold text-white leading-tight"
+      >
+        AI-Powered{" "}
+        <span className="bg-gradient-to-r from-purple-400 to-amber-400 bg-clip-text text-transparent">
+          Automation
+        </span>{" "}
+        for Forms & Photos
+      </motion.h1>
 
-        <div className="flex items-center justify-center gap-5">
-          <button className="group relative px-9 py-4 rounded-2xl font-semibold text-black bg-gradient-to-br from-amber-400 to-amber-600  shadow-amber-500/30 transition-all duration-300 hover:scale-[1.06] hover:shadow-amber-500/200">
-            <span className="relative z-10 flex items-center gap-2">
-              Get Started
-            </span>
-          </button>
+      <motion.p
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="text-gray-400 text-lg max-w-lg mx-auto md:mx-0"
+      >
+        NavRiox helps you autofill forms, enhance photos, and automate
+        repetitive workflows in seconds — securely and intelligently.
+      </motion.p>
 
-          <button className="px-8 py-4 rounded-xl font-bold text-white border border-white/10 backdrop-blur-sm transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:scale-105">
-            Services
-          </button>
-        </div>
-      </div>
-    </section>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.1 }}
+        className="flex flex-wrap justify-center md:justify-start gap-5"
+      >
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate("/register")}
+          className="px-8 py-4 rounded-2xl font-semibold text-black bg-gradient-to-br from-amber-400 to-amber-600 shadow-lg shadow-amber-500/30 transition-all duration-300"
+        >
+          Get Started
+        </motion.button>
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate("/services")}
+          className="px-8 py-4 rounded-2xl font-semibold text-white border border-white/20 hover:bg-white/10 transition"
+        >
+          Explore Services
+        </motion.button>
+      </motion.div>
+    </div>
   );
 };
 
