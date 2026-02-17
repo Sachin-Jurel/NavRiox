@@ -8,6 +8,7 @@ import Changelog from "./Pages/Changelogs";
 import Footer from "./components/others/Footer";
 import Signup from "./Pages/Signup";
 import Login from "./Pages/Login";
+import AutoFillForm from "./Pages/AutoFillForm";
 
 const App = () => {
   const location = useLocation();
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/services" element={<Services />} />
         <Route path="/support" element={<Support />} />
         <Route path="/changelog" element={<Changelog />} />
+        <Route path="/services/autofill" element={<AutoFillForm />} />
         <Route path="/register" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Routes>

@@ -8,6 +8,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import icon from "../assets/icon.png";
+import { useNavigate } from "react-router-dom";
 
 const services = [
   {
@@ -15,6 +16,7 @@ const services = [
     title: "AI Form Auto-Fill",
     description:
       "Automatically extract and fill form data from images & documents with precision.",
+      go: "/services/autofill"
   },
   {
     icon: ScanLine,
@@ -49,6 +51,7 @@ const services = [
 ];
 
 const Services = () => {
+  const navigate = useNavigate();
   return (
     <section className="py-28 px-6 bg-black">
       <div className="max-w-7xl mx-auto">
@@ -80,6 +83,7 @@ const Services = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -8 }}
+                onClick={() => service.go && navigate(service.go)}
                 className="relative bg-gray-900 border border-gray-800 rounded-2xl p-8 hover:border-purple-500/60 transition-all duration-300 group"
               >
                 {/* Glow Effect */}
