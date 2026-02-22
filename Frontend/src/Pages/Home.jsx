@@ -109,98 +109,73 @@ const Home = () => {
 
       <section className="py-28 px-6 bg-black">
         <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
             <h2 className="text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
               Simple Pricing Plans
             </h2>
             <p className="text-gray-400 text-lg">
               Choose a plan that fits your needs
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div
-              onClick={() => setActivePlan("free")}
-              className={`cursor-pointer border rounded-2xl p-8 backdrop-blur-xl transition-all duration-300 ${getCardStyle(
-                "free",
-              )}`}
-            >
-              <h3 className="text-2xl font-semibold text-white mb-4">Free</h3>
-              <p className="text-4xl font-bold text-purple-400 mb-6">₹0</p>
-              <ul className="space-y-4 mb-8 text-gray-300">
-                <li className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-purple-400" />
-                  Fill up to 3 forms
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-purple-400" />
-                  Basic AI autofill
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-purple-400" />
-                  Secure data storage
-                </li>
-              </ul>
-              <button className="w-full py-3 bg-white/10 border border-white/20 rounded-lg font-semibold hover:bg-white/20 transition">
-                Get Started
-              </button>
-            </div>
+            {["free", "starter", "pro"].map((plan, index) => (
+              <motion.div
+                key={plan}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2, duration: 0.6 }}
+                whileHover={{ y: -12, scale: 1.03 }}
+                onClick={() => setActivePlan(plan)}
+                className={`cursor-pointer border rounded-2xl p-8 backdrop-blur-xl transition-all duration-300 ${getCardStyle(plan)}`}
+              >
+                <h3 className="text-2xl font-semibold text-white mb-4 capitalize">
+                  {plan}
+                </h3>
 
-            <div
-              onClick={() => setActivePlan("starter")}
-              className={`cursor-pointer border rounded-2xl p-8 backdrop-blur-xl transition-all duration-300 ${getCardStyle(
-                "starter",
-              )}`}
-            >
-              <h3 className="text-2xl font-semibold text-white mb-4">
-                Starter
-              </h3>
-              <p className="text-4xl font-bold text-purple-400 mb-6">₹49</p>
-              <ul className="space-y-4 mb-8 text-gray-300">
-                <li className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-purple-400" />
-                  Fill up to 10 forms
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-purple-400" />
-                  Faster AI processing
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-purple-400" />
-                  Priority support
-                </li>
-              </ul>
-              <button className="w-full py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold hover:scale-105 transition">
-                Upgrade Now
-              </button>
-            </div>
+                <p className="text-4xl font-bold text-purple-400 mb-6">
+                  {plan === "free" ? "₹0" : plan === "starter" ? "₹49" : "₹99"}
+                </p>
 
-            <div
-              onClick={() => setActivePlan("pro")}
-              className={`cursor-pointer border rounded-2xl p-8 backdrop-blur-xl transition-all duration-300 ${getCardStyle(
-                "pro",
-              )}`}
-            >
-              <h3 className="text-2xl font-semibold text-white mb-4">Pro</h3>
-              <p className="text-4xl font-bold text-purple-400 mb-6">₹99</p>
-              <ul className="space-y-4 mb-8 text-gray-300">
-                <li className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-purple-400" />
-                  Fill up to 25 forms
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-purple-400" />
-                  Advanced AI autofill
-                </li>
-                <li className="flex items-center gap-3">
-                  <Check className="w-5 h-5 text-purple-400" />
-                  Premium support
-                </li>
-              </ul>
-              <button className="w-full py-3 bg-white/10 border border-white/20 rounded-lg font-semibold hover:bg-white/20 transition">
-                Go Pro
-              </button>
-            </div>
+                <ul className="space-y-4 mb-8 text-gray-300">
+                  <li className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-purple-400" />
+                    {plan === "free" && "Fill up to 3 forms"}
+                    {plan === "starter" && "Fill up to 10 forms"}
+                    {plan === "pro" && "Fill up to 25 forms"}
+                  </li>
+
+                  <li className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-purple-400" />
+                    {plan === "free" && "Basic AI autofill"}
+                    {plan === "starter" && "Faster AI processing"}
+                    {plan === "pro" && "Advanced AI autofill"}
+                  </li>
+
+                  <li className="flex items-center gap-3">
+                    <Check className="w-5 h-5 text-purple-400" />
+                    {plan === "free" && "Secure data storage"}
+                    {plan === "starter" && "Priority support"}
+                    {plan === "pro" && "Premium support"}
+                  </li>
+                </ul>
+
+                <button className="w-full py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold hover:scale-105 transition">
+                  {plan === "free"
+                    ? "Get Started"
+                    : plan === "starter"
+                      ? "Upgrade Now"
+                      : "Go Pro"}
+                </button>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
