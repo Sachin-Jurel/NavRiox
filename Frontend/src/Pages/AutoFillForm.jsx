@@ -1,4 +1,8 @@
 import { motion } from "framer-motion";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import Features from "../components/others/Features";
+import Steps from "../components/others/Steps";
 
 import {
   Sparkles,
@@ -15,6 +19,9 @@ import {
 } from "lucide-react";
 
 const AutoFillForm = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   const demoFeatures = [
     "Fills 100+ fields automatically",
     "Works on 90% of websites",
@@ -106,9 +113,23 @@ const AutoFillForm = () => {
               </p>
 
               <div className="flex gap-4 justify-center lg:justify-start">
-                <button className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold text-lg transition-all duration-300 hover:from-purple-500 hover:to-blue-500 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/30 active:scale-95">
-                  Install Extension
-                </button>
+                {user ? (
+                  <button
+                    onClick={() =>
+                      window.open("https://your-extension-link.com")
+                    }
+                    className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold text-lg transition-all duration-300 hover:from-purple-500 hover:to-blue-500 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/30 active:scale-95"
+                  >
+                    Install Extension
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => navigate("/register")}
+                    className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold text-lg transition-all duration-300 hover:from-purple-500 hover:to-blue-500 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/30 active:scale-95"
+                  >
+                    Register to Install
+                  </button>
+                )}
 
                 <button className="px-8 py-4 bg-white/10 border border-white/20 rounded-lg font-semibold text-lg transition-all duration-300 hover:bg-white/20 hover:border-purple-500/40 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20 active:scale-95">
                   Watch Demo
@@ -184,67 +205,27 @@ const AutoFillForm = () => {
         </div>
       </section>
 
-      <section className="py-24 px-6 bg-gray-950">
-        <div className="container mx-auto max-w-6xl">
+      <section className="relative py-32 px-6 bg-black overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/5 to-transparent"></div>
+
+        <div className="relative container mx-auto max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
-            <h2 className="text-4xl lg:text-5xl mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
               How It Works
             </h2>
-            <p className="text-xl text-gray-400">
-              Get started in three simple steps
+
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Three simple steps to transform your workflow with AI
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {steps.map((step, index) => {
-              const Icon = step.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 * index, duration: 0.6 }}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  className="relative group"
-                >
-                  {/* Connection Line */}
-                  {index < steps.length - 1 && (
-                    <div className="hidden md:block absolute top-24 left-full w-full h-0.5 bg-gradient-to-r from-purple-500/50 to-transparent -translate-x-1/2 z-0" />
-                  )}
-
-                  <div className="relative bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-500/20 rounded-2xl p-8 h-full hover:border-purple-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20">
-                    {/* Step Number */}
-                    <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center text-xl font-bold shadow-lg">
-                      {index + 1}
-                    </div>
-
-                    {/* Icon */}
-                    <div className="w-16 h-16 mb-6 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-xl flex items-center justify-center border border-purple-500/30 group-hover:scale-110 transition-transform">
-                      <Icon className="w-8 h-8 text-purple-400" />
-                    </div>
-
-                    <h3 className="text-2xl font-semibold mb-3 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                      {step.title}
-                    </h3>
-
-                    <p className="text-gray-300 leading-relaxed text-base">
-                      {step.description}
-                    </p>
-
-                    {/* Hover Glow Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-blue-500/0 group-hover:from-purple-500/5 group-hover:to-blue-500/5 rounded-2xl transition-all duration-300 pointer-events-none" />
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+          <Steps steps={steps} />
         </div>
       </section>
 
@@ -268,40 +249,7 @@ const AutoFillForm = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 * index, duration: 0.6 }}
-                  whileHover={{ y: -10, scale: 1.03 }}
-                  className="group relative"
-                >
-                  <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 h-full transition-all duration-300 hover:border-purple-500/40 hover:shadow-2xl hover:shadow-purple-500/20 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/0 via-blue-500/0 to-purple-500/0 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-
-                    <div className="relative w-16 h-16 mb-6 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-xl flex items-center justify-center border border-purple-500/30 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                      <Icon className="w-8 h-8 text-purple-400"></Icon>
-                    </div>
-
-                    <h3 className="text-xl font-semibold mb-3 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent relative">
-                      {feature.title}
-                    </h3>
-
-                    <p className="text-gray-300 leading-relaxed relative">
-                      {feature.description}
-                    </p>
-
-                    <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/20 transition-colors duration-500"></div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+          <Features features={features} />
         </div>
       </section>
     </>

@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -18,14 +23,24 @@ export default function Login() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login:", formData);
+
+    try {
+      const res = await login(formData);
+      if (res) {
+        navigate("/");
+      }
+      else{
+        alert("Login failed: Invalid credentials");
+      }
+    } catch (error) {
+      console.error("Login Error:", error.response?.data || error.message);
+    }
   };
 
   return (
     <div className="relative min-h-screen bg-black flex items-center justify-center px-6 overflow-hidden">
-
       {/* Background Glow */}
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-600/30 rounded-full blur-3xl animate-pulse" />
       <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-blue-600/30 rounded-full blur-3xl animate-pulse" />
@@ -45,7 +60,6 @@ export default function Login() {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-
           {/* Email */}
           <div className="relative">
             <Mail className="absolute left-4 top-3.5 text-gray-400 w-5 h-5" />

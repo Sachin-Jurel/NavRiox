@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Lock, User } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -9,6 +11,8 @@ export default function Signup() {
     email: "",
     password: "",
   });
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -17,14 +21,27 @@ export default function Signup() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Signup:", formData);
-  };
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await register(formData);
+
+    console.log("Response:", response);
+    if (response) {
+      navigate("/");
+    } else {
+      alert("Registration failed: " + response.message);
+    }
+  } catch (error) {
+    console.error("Error:", error.response?.data || error.message);
+  }
+};
+
 
   return (
     <div className="relative min-h-screen bg-black flex items-center justify-center px-6 overflow-hidden">
-
       {/* Background Glow */}
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-purple-600/30 rounded-full blur-3xl animate-pulse" />
       <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-blue-600/30 rounded-full blur-3xl animate-pulse" />
@@ -45,7 +62,6 @@ export default function Signup() {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-
           <div className="relative">
             <User className="absolute left-4 top-3.5 text-gray-400 w-5 h-5" />
             <input
@@ -90,7 +106,6 @@ export default function Signup() {
           >
             Sign Up
           </motion.button>
-
         </form>
 
         <p className="text-gray-400 text-center text-sm mt-6">

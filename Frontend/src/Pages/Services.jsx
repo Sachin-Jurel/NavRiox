@@ -1,22 +1,23 @@
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  ScanLine,
-  ImagePlus,
-  Map,
-  Workflow,
-  Sparkles,
-} from "lucide-react";
+import { ScanLine, ImagePlus, Map, Image, Sparkles } from "lucide-react";
 import icon from "../assets/icon.png";
 import { useNavigate } from "react-router-dom";
 
 const services = [
   {
-    icon: icon,
+    icon: icon, // PNG image
     title: "AI Form Auto-Fill",
     description:
       "Automatically extract and fill form data from images & documents with precision.",
-      go: "/services/autofill"
+    go: "/services/autofill",
+  },
+  {
+    icon: Image,
+    title: "AI Passport Photo Editor",
+    description:
+      "Upload your photo and instantly convert it into a professional passport-style image with AI suit/coat addition, background correction, and smart enhancements.",
+    go: "/services/passportphoto",
   },
   {
     icon: ScanLine,
@@ -33,14 +34,7 @@ const services = [
   {
     icon: Map,
     title: "Document Mapping",
-    description:
-      "Smart document validation with real-time error detection.",
-  },
-  {
-    icon: Workflow,
-    title: "Workflow Automation",
-    description:
-      "Automate repetitive tasks and streamline your operations.",
+    description: "Smart document validation with real-time error detection.",
   },
   {
     icon: Sparkles,
@@ -52,10 +46,10 @@ const services = [
 
 const Services = () => {
   const navigate = useNavigate();
+
   return (
     <section className="py-28 px-6 bg-black">
       <div className="max-w-7xl mx-auto">
-
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -67,7 +61,8 @@ const Services = () => {
             Our Services
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Powerful AI tools designed to simplify, automate, and scale your workflow.
+            Powerful AI tools designed to simplify, automate, and scale your
+            workflow.
           </p>
         </motion.div>
 
@@ -84,15 +79,21 @@ const Services = () => {
                 viewport={{ once: true }}
                 whileHover={{ y: -8 }}
                 onClick={() => service.go && navigate(service.go)}
-                className="relative bg-gray-900 border border-gray-800 rounded-2xl p-8 hover:border-purple-500/60 transition-all duration-300 group"
+                className="relative bg-gray-900 border border-gray-800 rounded-2xl p-8 hover:border-purple-500/60 transition-all duration-300 group cursor-pointer"
               >
-                {/* Glow Effect */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-600/0 to-blue-600/0 group-hover:from-purple-600/10 group-hover:to-blue-600/10 transition-all duration-300" />
 
                 <div className="relative z-10">
-
                   <div className="w-14 h-14 mb-6 rounded-xl bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center shadow-lg shadow-purple-900/30 group-hover:scale-110 transition duration-300">
-                    <img src={service.icon} alt={service.title} className="w-7 h-7 object-contain" />
+                    {typeof Icon === "string" ? (
+                      <img
+                        src={Icon}
+                        alt={service.title}
+                        className="w-7 h-7 object-contain"
+                      />
+                    ) : (
+                      <Icon className="w-7 h-7 text-white" />
+                    )}
                   </div>
 
                   <h3 className="text-xl font-semibold text-white mb-3">
@@ -102,13 +103,11 @@ const Services = () => {
                   <p className="text-gray-400 leading-relaxed text-sm">
                     {service.description}
                   </p>
-
                 </div>
               </motion.div>
             );
           })}
         </div>
-
       </div>
     </section>
   );
