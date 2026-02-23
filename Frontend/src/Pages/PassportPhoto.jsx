@@ -110,7 +110,7 @@ const PassportPhoto = () => {
                     onClick={() => navigate("/passport-editor")}
                     className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg font-semibold text-lg hover:scale-105 transition"
                   >
-                    Upload Photo
+                    Generate Passport Photo
                   </button>
                 ) : (
                   <button

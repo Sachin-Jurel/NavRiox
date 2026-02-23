@@ -10,6 +10,7 @@ import Signup from "./Pages/Signup";
 import Login from "./Pages/Login";
 import AutoFillForm from "./Pages/AutoFillForm";
 import PassportPhoto from "./Pages/PassportPhoto";
+import PassportEditor from "./Pages/PassportEditor";
 
 const App = () => {
   const location = useLocation();
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/changelog" element={<Changelog />} />
         <Route path="/services/autofill" element={<AutoFillForm />} />
         <Route path="/services/passportphoto" element={<PassportPhoto />} />
+        <Route path="/passport-editor" element={<PassportEditor />} />
         <Route path="/register" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Routes>
